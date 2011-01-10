@@ -1,14 +1,14 @@
 NAME
 
-    Finance::Bank::JP::Mizuho
-    Check balances and transactions for Mizuho bank accounts
+    DBIx::Class::Storage::DBI::mysql::backup
+    Add sub backup to DBIx::Class::Storage::DBI::mysql for support DBIx::Class::Schema::Versioned#backup
 
 DOCUMENTATION
 
     After installing, you can find documentation for this module with the
     perldoc command:
 
-    perldoc Finance::Bank::JP::Mizuho
+    perldoc DBIx::Class::Storage::DBI::mysql::backup
 
 COPYRIGHT AND LICENCE
 
