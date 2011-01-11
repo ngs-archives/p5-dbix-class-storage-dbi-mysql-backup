@@ -5,6 +5,7 @@ use FindBin::libs;
 use Test::More;
 use Test::mysqld;
 use Symbol;
+use File::Path qw/rmtree/;
 
 BEGIN {
     use_ok 'DBICTest::Schema';
@@ -15,17 +16,16 @@ my $mysqld = Test::mysqld->new(
     my_cnf => { 'skip-networking' => '' },
 ) or plan skip_all => $Test::mysqld::errstr;
 
-
 {
     my $schema = DBICTest::Schema->connect($mysqld->dsn(dbname => 'test'));
     $schema->deploy;
     my $artist_rs = $schema->resultset('Artist');
     my $cd_rs = $schema->resultset('CD');
     
-    my ($backup_file, $artist, $cd);
+    my ($artist, $cd);
     
     $artist = $artist_rs->create({
-        name => 'foo',
+        name => 'the great artist',
     });
     
     $cd = $cd_rs->create({
@@ -39,19 +39,26 @@ my $mysqld = Test::mysqld->new(
     });
     
     my $dump = $schema->storage->dump;
-    ok $dump;
+    like $dump, qr/CREATE TABLE `artist`/i, 'has CREATE TABLE `artist`';
+    like $dump, qr/CREATE TABLE `cd`/i, 'has CREATE TABLE `cd`';
+    like $dump, qr/'album1'/, 'has album1';
+    like $dump, qr/'album2'/, 'has album2';
+    like $dump, qr/'the great artist'/, 'has the great artist';
     
-    $backup_file = $schema->backup;
-    ok $backup_file;
-    
-    my $target = $schema->backup_directory."/$backup_file";
+    my $backup_file = $schema->backup;
+    ok $backup_file, "returned file name $backup_file";
+
+    my $dir = $schema->backup_directory;
+    my $target = "$dir/$backup_file";
     ok -f $target, "backup file exists to $target";
     my $fh = Symbol::gensym();
     open $fh, $target or fail($!);
     local $/ = undef;
     my $read = <$fh>;
     close $fh;
-    is $read, $dump;
+    is $read, $dump, 'dumped sql file correctly';
+    
+    rmtree $dir;
 }
 
 done_testing;

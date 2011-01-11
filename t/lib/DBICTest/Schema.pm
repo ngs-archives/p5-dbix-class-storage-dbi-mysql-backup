@@ -1,6 +1,9 @@
 package #
     DBICTest::Schema;
 
+use strict;
+use warnings;
+
 use base qw/DBIx::Class::Schema/;
 use FindBin;
 

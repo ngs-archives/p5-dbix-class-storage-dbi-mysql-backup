@@ -4,4 +4,9 @@ Makefile.PL
 README
 lib/DBIx/Class/Storage/DBI/mysql/backup.pm
 t/00_basic.t
-META.yml                                 Module meta-data (added by MakeMaker)
+t/01_dump.t
+t/lib/DBICTest/Schema.pm
+t/lib/DBICTest/Schema/Artist.pm
+t/lib/DBICTest/Schema/CD.pm
+t/var/ignoreme
+META.yml
