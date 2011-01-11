@@ -27,6 +27,8 @@ This plugin enables L<DBIx::Class::Schema::Versioned/backup> when using MySQL.
 
 =cut
 
+package DBIx::Class::Storage::DBI::mysql::backup;
+
 use strict;
 use warnings;
 
@@ -39,7 +41,7 @@ use Symbol;
 use vars qw( $VERSION );
 $VERSION = '0.01';
 
-BEGIN {
+sub import {
 
     *DBIx::Class::Storage::DBI::dump = \&_dump;
     *DBIx::Class::Storage::DBI::backup = \&_backup;
