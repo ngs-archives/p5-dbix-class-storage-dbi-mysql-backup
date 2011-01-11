@@ -1,11 +1,7 @@
-DBIx::Class::Storage::DUBsIe:r:mCyosnqtlr:i:bbuatDceBkdIuxpP:(e:3rC)llaDsosc:u:mSetnotraatgieo:n:DBI::mysql::backup(3)
-
-
-
-NNAAMMEE
+NAME
        DBIx::Class::Storage::DBI::mysql::backup
 
-SSYYNNOOPPSSIISS
+SYNOPSIS
            package MyApp::Schema;
            use base qw/DBIx::Class::Schema/;
 
@@ -17,36 +13,32 @@ SSYYNNOOPPSSIISS
                Storage::DBI::mysql::backup
            /);
 
-DDEESSCCRRIIPPTTIIOONN
+DESCRIPTION
        Adds "backup" method to DBIx::Class::Storage::DBI::mysql.
 
        This plugin enables "backup" in DBIx::Class::Schema::Versioned when
        using MySQL.
 
-FFUUNNCCTTIIOONNSS
-   bbaacckkuupp (( $$ttoo__ddiirr ))
+FUNCTIONS
+   backup ( $to_dir )
        writes SQL file as "backup_filename" to $to_dir. returns SQL filename.
 
-   bbaacckkuupp__ffiilleennaammee
-       returns filename of backup _$_D_B___N_A_M_E_−_Y_Y_Y_Y_M_M_D_D_−_h_h_m_m_s_s_._s_q_l
+   backup_filename
+       returns filename of backup $DB_NAME−YYYYMMDD−hhmmss.sql
 
-   dduummpp
+   dump
        returns dumped SQL
 
-SSEEEE AALLSSOO
+SEE ALSO
        · DBIx::Class::Schema::Versioned
 
        · MySQL::Backup
 
-AAUUTTHHOORR
+AUTHOR
        Atsushi Nagase <ngs@cpan.org>
 
-CCOOPPYYRRIIGGHHTT AANNDD LLIICCEENNSSEE
+COPYRIGHT AND LICENSE
        Copyright (C) 2011 Atsushi Nagase <ngs@cpan.org>
 
        This library is free software; you can redistribute it and/or modify it
        under the same terms as Perl itself.
-
-
-
-perl v5.12.1                      20D1B1I‐x0:1:‐C1l2ass::Storage::DBI::mysql::backup(3)
