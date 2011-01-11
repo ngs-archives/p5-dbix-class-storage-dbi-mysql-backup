@@ -4,4 +4,4 @@ config.yml
 META.yml
 Makefile
 .*.swp
-
+t/var/backup/*.sql

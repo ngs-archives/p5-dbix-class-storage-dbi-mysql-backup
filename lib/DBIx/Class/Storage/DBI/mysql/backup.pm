@@ -18,9 +18,11 @@ sub _backup {
 
     mkpath([$dir]) unless -d $dir;
     
-
     my $dsn = $self->_dbi_connect_info->[0];
     my $dbname = $1 if($dsn =~ /^dbi:mysql:database=([^;]+)/i);
+    unless($dbname) {
+        $dbname = $1 if($dsn =~ /^dbi:mysql:dbname=([^;]+)/i);
+    }
     unless($dbname) {
         $dbname = $1 if($dsn =~ /^dbi:mysql:([^;]+)/i);
     }

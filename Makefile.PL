@@ -10,6 +10,7 @@ WriteMakefile(
     ($ExtUtils::MakeMaker::VERSION >= 6.3002 ? ('LICENSE' => 'perl') : ()),
     PL_FILES            => {},
     PREREQ_PM => {
+        'Test::mysqld' => 0,
         'DBIx::Class' => 0,
         'DBIx::Class::Storage::DBI::mysql' => 0,
         'MySQL::Backup' => 0,
