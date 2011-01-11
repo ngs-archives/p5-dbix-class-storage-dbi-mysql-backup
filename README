@@ -1,22 +1,52 @@
-NAME
+DBIx::Class::Storage::DUBsIe:r:mCyosnqtlr:i:bbuatDceBkdIuxpP:(e:3rC)llaDsosc:u:mSetnotraatgieo:n:DBI::mysql::backup(3)
 
-    DBIx::Class::Storage::DBI::mysql::backup
-    Add sub backup to DBIx::Class::Storage::DBI::mysql for support DBIx::Class::Schema::Versioned#backup
 
-DOCUMENTATION
 
-    After installing, you can find documentation for this module with the
-    perldoc command:
+NNAAMMEE
+       DBIx::Class::Storage::DBI::mysql::backup
 
-    perldoc DBIx::Class::Storage::DBI::mysql::backup
+SSYYNNOOPPSSIISS
+           package MyApp::Schema;
+           use base qw/DBIx::Class::Schema/;
 
-COPYRIGHT AND LICENCE
+           our $VERSION = 0.001;
 
-    Copyright (C) 2011 Atsushi Nagase <ngs@cpan.org>
+           __PACKAGE__−>load_classes(qw/CD Book DVD/);
+           __PACKAGE__−>load_components(qw/
+               Schema::Versioned
+               Storage::DBI::mysql::backup
+           /);
 
-    This program is free software; you can redistribute it and/or modify it
-    under the terms of either: the GNU General Public License as published
-    by the Free Software Foundation; or the Artistic License.
+DDEESSCCRRIIPPTTIIOONN
+       Adds "backup" method to DBIx::Class::Storage::DBI::mysql.
 
-    See http://dev.perl.org/licenses/ for more information.
+       This plugin enables "backup" in DBIx::Class::Schema::Versioned when
+       using MySQL.
 
+FFUUNNCCTTIIOONNSS
+   bbaacckkuupp (( $$ttoo__ddiirr ))
+       writes SQL file as "backup_filename" to $to_dir. returns SQL filename.
+
+   bbaacckkuupp__ffiilleennaammee
+       returns filename of backup _$_D_B___N_A_M_E_−_Y_Y_Y_Y_M_M_D_D_−_h_h_m_m_s_s_._s_q_l
+
+   dduummpp
+       returns dumped SQL
+
+SSEEEE AALLSSOO
+       · DBIx::Class::Schema::Versioned
+
+       · MySQL::Backup
+
+AAUUTTHHOORR
+       Atsushi Nagase <ngs@cpan.org>
+
+CCOOPPYYRRIIGGHHTT AANNDD LLIICCEENNSSEE
+       Copyright (C) 2011 Atsushi Nagase <ngs@cpan.org>
+
+       This library is free software; you can redistribute it and/or modify it
+       under the same terms as Perl itself.
+
+
+
+perl v5.12.1                      20D1B1I‐x0:1:‐C1l2ass::Storage::DBI::mysql::backup(3)
