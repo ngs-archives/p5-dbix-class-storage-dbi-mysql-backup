@@ -9,7 +9,6 @@ use File::Path qw/rmtree/;
 
 BEGIN {
     use_ok 'DBICTest::Schema';
-    use_ok 'DBIx::Class::Storage::DBI::mysql::backup';
 }
 
 my $mysqld = Test::mysqld->new(
@@ -17,6 +16,8 @@ my $mysqld = Test::mysqld->new(
 ) or plan skip_all => $Test::mysqld::errstr;
 
 {
+    local $ENV{DBIC_NO_VERSION_CHECK} = 1;
+
     my $schema = DBICTest::Schema->connect($mysqld->dsn(dbname => 'test'));
     $schema->deploy;
     my $artist_rs = $schema->resultset('Artist');

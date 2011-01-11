@@ -6,10 +6,11 @@ use Test::More;
 
 BEGIN {
     use_ok 'DBICTest::Schema';
-    use_ok 'DBIx::Class::Storage::DBI::mysql::backup';
 }
 
 {
+    local $ENV{DBIC_NO_VERSION_CHECK} = 1;
+
     my $re = qr/test\-\d{8}\-\d{6}\.sql/;
     
     my $filename;

@@ -6,11 +6,12 @@ WriteMakefile(
     NAME                => 'DBIx::Class::Storage::DBI::mysql::backup',
     AUTHOR              => q{Atsushi Nagase <ngs@cpan.org>},
     VERSION_FROM        => 'lib/DBIx/Class/Storage/DBI/mysql/backup.pm',
-    ABSTRACT_FROM       => 'lib/DBIx/Class/Storage/DBI/mysql/backup.pm',
     ($ExtUtils::MakeMaker::VERSION >= 6.3002 ? ('LICENSE' => 'perl') : ()),
     PL_FILES            => {},
-    PREREQ_PM => {
+    BUILD_REQUIRES => {
         'Test::mysqld' => 0,
+    },
+    PREREQ_PM => {
         'DBIx::Class' => 0,
         'DBIx::Class::Storage::DBI::mysql' => 0,
         'MySQL::Backup' => 0,

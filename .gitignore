@@ -1,7 +1,11 @@
+.*.swp
 .DS_Store
 .prove
-config.yml
 META.yml
 Makefile
-.*.swp
+Makefile.old
+blib
+config.yml
+inc
+pm_to_blib
 t/var/backup/*.sql

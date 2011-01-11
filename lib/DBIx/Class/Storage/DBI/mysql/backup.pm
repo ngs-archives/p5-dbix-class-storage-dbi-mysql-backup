@@ -1,5 +1,31 @@
-package #
-    DBIx::Class::Storage::DBI::mysql::backup;
+=head1 NAME
+
+DBIx::Class::Storage::DBI::mysql::backup
+
+=head1 SYNOPSIS
+    
+    package MyApp::Schema;
+    use base qw/DBIx::Class::Schema/;
+    
+    our $VERSION = 0.001;
+    
+    __PACKAGE__->load_classes(qw/CD Book DVD/);
+    __PACKAGE__->load_components(qw/
+        Schema::Versioned
+        Storage::DBI::mysql::backup
+    /);
+
+
+=head1 DESCRIPTION
+
+Adds C<backup> method to L<DBIx::Class::Storage::DBI::mysql>.
+
+This plugin enables L<DBIx::Class::Schema::Versioned/backup> when using MySQL.
+
+
+=head1 FUNCTIONS
+
+=cut
 
 use strict;
 use warnings;
@@ -10,15 +36,23 @@ use MySQL::Backup;
 use File::Path qw/mkpath/;
 use Symbol;
 
-
 use vars qw( $VERSION );
 $VERSION = '0.01';
 
-sub import {
+BEGIN {
+
     *DBIx::Class::Storage::DBI::dump = \&_dump;
     *DBIx::Class::Storage::DBI::backup = \&_backup;
     *DBIx::Class::Storage::DBI::backup_filename = \&_backup_filename;
+
 }
+
+
+=head2 backup ( $to_dir )
+
+writes SQL file as L</backup_filename> to $to_dir. returns SQL filename.
+
+=cut
 
 sub _backup {
     my ( $self, $dir ) = @_;
@@ -30,6 +64,13 @@ sub _backup {
     close $fh;
     $filename
 }
+
+
+=head2 backup_filename
+
+returns filename of backup I<$DB_NAME-YYYYMMDD-hhmmss.sql>
+
+=cut
 
 sub _backup_filename {
     my $self = shift;
@@ -53,6 +94,12 @@ sub _backup_filename {
     $filename
 }
 
+=head2 dump
+
+returns dumped SQL
+
+=cut
+
 sub _dump {
     my $self = shift;
     my $mb = MySQL::Backup->new_from_DBH( $self->dbh ,{'USE_REPLACE' => 1, 'SHOW_TABLE_NAMES' => 1});
@@ -63,56 +110,28 @@ sub _dump {
 1;
 __END__
 
-=head1 NAME
-
-    DBIx::Class::Storage::DBI::mysql::backup
-
-    Adds `backup` method to L<DBIx::Class::Storage::DBI::mysql>.
-    This plugin enables L<DBIx::Class::Schema::Versioned/backup> when using MySQL.
-
-=head1 SYNOPSIS
-
-
-=cut
-
-=head1 DESCRIPTION
-
-=cut
-
-=head1 FUNCTIONS
-
-=cut
-
-=head2 backup_filename
-
-=cut
-
-=head2 dump
-
-=cut
-
-=head2 backup
-
-=cut
-
 =head1 SEE ALSO
 
-    L<DBIx::Class::Schema::Versioned>
-    L<MySQL::Backup>
+=over 2
 
-=cut
+=item * 
+L<DBIx::Class::Schema::Versioned>
+
+=item *
+L<MySQL::Backup>
+
+=back
 
 =head1 AUTHOR
 
-    Atsushi Nagase, <ngs@cpan.org>
+Atsushi Nagase <ngs@cpan.org>
 
-=cut
 
 =head1 COPYRIGHT AND LICENSE
 
-    Copyright (C) 2011 Atsushi Nagase <ngs@cpan.org>
-    
-    This library is free software; you can redistribute it and/or modify
-    it under the same terms as Perl itself.
+Copyright (C) 2011 Atsushi Nagase <ngs@cpan.org>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
