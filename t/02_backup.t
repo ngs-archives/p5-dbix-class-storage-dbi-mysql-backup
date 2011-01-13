@@ -7,13 +7,18 @@ use Test::mysqld;
 use Symbol;
 use File::Path qw/rmtree/;
 
+my $mysqld;
+
 BEGIN {
+
+    $mysqld = Test::mysqld->new(
+        my_cnf => { 'skip-networking' => '' },
+    ) or plan skip_all => $Test::mysqld::errstr;
+    
     use_ok 'DBICTest::Schema';
 }
 
-my $mysqld = Test::mysqld->new(
-    my_cnf => { 'skip-networking' => '' },
-) or plan skip_all => $Test::mysqld::errstr;
+
 
 {
     local $ENV{DBIC_NO_VERSION_CHECK} = 1;
