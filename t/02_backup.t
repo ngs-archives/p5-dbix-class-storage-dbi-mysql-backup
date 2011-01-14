@@ -1,11 +1,11 @@
 use strict;
 use warnings;
-use FindBin::libs;
 
 use Test::More;
 use Test::mysqld;
 use Symbol;
 use File::Path qw/rmtree/;
+use FindBin::libs;
 
 my $mysqld;
 
@@ -17,8 +17,6 @@ BEGIN {
     
     use_ok 'DBICTest::Schema';
 }
-
-
 
 {
     local $ENV{DBIC_NO_VERSION_CHECK} = 1;

@@ -14,4 +14,3 @@ BEGIN { use_ok 'DBIx::Class::Storage::DBI::mysql::backup' }
 }
 
 done_testing;
-
